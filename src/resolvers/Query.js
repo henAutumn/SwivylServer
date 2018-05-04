@@ -26,6 +26,10 @@ const Query = {
     const id = getUserId(ctx)
     return ctx.db.query.user({ where: { id } }, info)
   },
+  // kittens(parent, args, ctx, info) {
+  //   const id = getUserId(ctx)
+  //   return ctx.db.query.kittens({ where: { owner: { id } } }, info)
+  // }
 }
 
 module.exports = { Query }
