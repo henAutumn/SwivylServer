@@ -30,6 +30,7 @@ const Query = {
   // kittens(parent, args, ctx, info){
   //   const id = getUserId(ctx)
   //   return ctx.db.query.kittens({ where:{ owner: { id } } }, info)
+
   // }
 }
 

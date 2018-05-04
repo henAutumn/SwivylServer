@@ -6,6 +6,7 @@ type Query {
   post(id: ID!): Post
   me: User
   # kittens:[Kitten!]!
+
 }
 
 type Mutation {
@@ -20,6 +21,7 @@ type Mutation {
   # createKitten(name: String!, color: String!, isFat: Boolean!, isFierce: Boolean!): Kitten!
   # updateKitten(id:ID!, name: String, color: String, isFat: Boolean, isFierce: Boolean):Kitten!
   # deleteKitten(id:ID!):Kitten!
+
 }
 
 type Subscription {

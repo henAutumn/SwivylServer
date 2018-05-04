@@ -1,6 +1,7 @@
 # source: https://us1.prisma.sh/public-pintohorn-91/src/dev
 # timestamp: Thu May 03 2018 13:22:08 GMT-0400 (US Eastern Daylight Time)
 
+
 type AggregateKitten {
   count: Int!
 }
@@ -26,6 +27,7 @@ type Kitten implements Node {
   color: String!
   isFat: Boolean!
   isFierce: Boolean!
+
   owner(where: UserWhereInput): User!
 }
 
@@ -44,6 +46,7 @@ input KittenCreateInput {
   color: String!
   isFat: Boolean!
   isFierce: Boolean!
+
   owner: UserCreateOneWithoutKittensInput!
 }
 
@@ -57,6 +60,7 @@ input KittenCreateWithoutOwnerInput {
   color: String!
   isFat: Boolean!
   isFierce: Boolean!
+
 }
 
 """An edge in a connection."""
@@ -79,6 +83,7 @@ enum KittenOrderByInput {
   isFat_DESC
   isFierce_ASC
   isFierce_DESC
+
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -91,7 +96,7 @@ type KittenPreviousValues {
   color: String!
   isFat: Boolean!
   isFierce: Boolean!
-}
+
 
 type KittenSubscriptionPayload {
   mutation: MutationType!
@@ -135,8 +140,8 @@ input KittenSubscriptionWhereInput {
 input KittenUpdateInput {
   name: String
   color: String
-  isFat: Boolean
-  isFierce: Boolean
+
+
   owner: UserUpdateOneWithoutKittensInput
 }
 
@@ -154,6 +159,7 @@ input KittenUpdateWithoutOwnerDataInput {
   color: String
   isFat: Boolean
   isFierce: Boolean
+
 }
 
 input KittenUpdateWithWhereUniqueWithoutOwnerInput {
@@ -304,6 +310,7 @@ input KittenWhereInput {
 
   """All values that are not equal to given value."""
   isFierce_not: Boolean
+
   owner: UserWhereInput
 }
 
