@@ -5,7 +5,6 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   me: User
-  # kittens: [Kitten!]!
 }
 
 type Mutation {
@@ -33,7 +32,8 @@ type AuthPayload {
 type User {
   id: ID!
   email: String!
+  password: String!
   name: String!
   posts: [Post!]!
-  token: String!
+  agency: Agency
 }
