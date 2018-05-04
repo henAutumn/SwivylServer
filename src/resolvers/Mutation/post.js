@@ -51,4 +51,4 @@ const post = {
   },
 }
 
-module.exports = { post }
+// module.exports = { post }

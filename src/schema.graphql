@@ -11,9 +11,9 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
+  # createDraft(title: String!, text: String!): Post!
+  # publish(id: ID!): Post!
+  # deletePost(id: ID!): Post!
   
   # #kittens mutation
 
@@ -29,11 +29,22 @@ type Subscription {
 type AuthPayload {
   token: String!
   user: User!
+  agency: Agency!
 }
 
 type User {
-  id: ID!
-  email: String!
+  id: ID! 
+  email: String! 
+  password: String!
   name: String!
   posts: [Post!]!
+  agency: Agency!
+  isMU: Boolean!
 }
+type Agency {
+  id: ID! 
+  masteruser: User!
+  name: String!
+  img: String!
+  teammembers: [User!]!
+  }

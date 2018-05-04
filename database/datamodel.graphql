@@ -14,8 +14,17 @@ type User {
   password: String!
   name: String!
   posts: [Post!]!
-  kittens: [Kitten!]!
+  agency: Agency
+  # kittens: [Kitten!]!
 }
+
+type Agency {
+  id: ID! @unique
+  masteruser: String! 
+  name: String!
+  img: String!
+  teammembers: [User!]! 
+  }
 
 # type Kitten{
 #   id: ID! @unique

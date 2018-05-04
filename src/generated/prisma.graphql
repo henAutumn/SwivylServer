@@ -1,114 +1,89 @@
 # source: https://us1.prisma.sh/public-pintohorn-91/src/dev
-# timestamp: Thu May 03 2018 13:22:08 GMT-0400 (US Eastern Daylight Time)
+# timestamp: Fri May 04 2018 10:27:45 GMT-0400 (US Eastern Daylight Time)
 
-type AggregateKitten {
-  count: Int!
-}
-
-type AggregatePost {
-  count: Int!
-}
-
-type AggregateUser {
-  count: Int!
-}
-
-type BatchPayload {
-  """The number of nodes that have been affected by the Batch operation."""
-  count: Long!
-}
-
-scalar DateTime
-
-type Kitten implements Node {
+type Agency implements Node {
   id: ID!
+  masteruser: String!
   name: String!
-  color: String!
-  isFat: Boolean!
-  isFierce: Boolean!
-  owner(where: UserWhereInput): User!
+  img: String!
+  teammembers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 """A connection to a list of items."""
-type KittenConnection {
+type AgencyConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [KittenEdge]!
-  aggregate: AggregateKitten!
+  edges: [AgencyEdge]!
+  aggregate: AggregateAgency!
 }
 
-input KittenCreateInput {
+input AgencyCreateInput {
+  masteruser: String!
   name: String!
-  color: String!
-  isFat: Boolean!
-  isFierce: Boolean!
-  owner: UserCreateOneWithoutKittensInput!
+  img: String!
+  teammembers: UserCreateManyWithoutAgencyInput
 }
 
-input KittenCreateManyWithoutOwnerInput {
-  create: [KittenCreateWithoutOwnerInput!]
-  connect: [KittenWhereUniqueInput!]
+input AgencyCreateOneWithoutTeammembersInput {
+  create: AgencyCreateWithoutTeammembersInput
+  connect: AgencyWhereUniqueInput
 }
 
-input KittenCreateWithoutOwnerInput {
+input AgencyCreateWithoutTeammembersInput {
+  masteruser: String!
   name: String!
-  color: String!
-  isFat: Boolean!
-  isFierce: Boolean!
+  img: String!
 }
 
 """An edge in a connection."""
-type KittenEdge {
+type AgencyEdge {
   """The item at the end of the edge."""
-  node: Kitten!
+  node: Agency!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum KittenOrderByInput {
+enum AgencyOrderByInput {
   id_ASC
   id_DESC
+  masteruser_ASC
+  masteruser_DESC
   name_ASC
   name_DESC
-  color_ASC
-  color_DESC
-  isFat_ASC
-  isFat_DESC
-  isFierce_ASC
-  isFierce_DESC
+  img_ASC
+  img_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type KittenPreviousValues {
+type AgencyPreviousValues {
   id: ID!
+  masteruser: String!
   name: String!
-  color: String!
-  isFat: Boolean!
-  isFierce: Boolean!
+  img: String!
 }
 
-type KittenSubscriptionPayload {
+type AgencySubscriptionPayload {
   mutation: MutationType!
-  node: Kitten
+  node: Agency
   updatedFields: [String!]
-  previousValues: KittenPreviousValues
+  previousValues: AgencyPreviousValues
 }
 
-input KittenSubscriptionWhereInput {
+input AgencySubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [KittenSubscriptionWhereInput!]
+  AND: [AgencySubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [KittenSubscriptionWhereInput!]
+  OR: [AgencySubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [KittenSubscriptionWhereInput!]
+  NOT: [AgencySubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -129,53 +104,45 @@ input KittenSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: KittenWhereInput
+  node: AgencyWhereInput
 }
 
-input KittenUpdateInput {
+input AgencyUpdateInput {
+  masteruser: String
   name: String
-  color: String
-  isFat: Boolean
-  isFierce: Boolean
-  owner: UserUpdateOneWithoutKittensInput
+  img: String
+  teammembers: UserUpdateManyWithoutAgencyInput
 }
 
-input KittenUpdateManyWithoutOwnerInput {
-  create: [KittenCreateWithoutOwnerInput!]
-  connect: [KittenWhereUniqueInput!]
-  disconnect: [KittenWhereUniqueInput!]
-  delete: [KittenWhereUniqueInput!]
-  update: [KittenUpdateWithWhereUniqueWithoutOwnerInput!]
-  upsert: [KittenUpsertWithWhereUniqueWithoutOwnerInput!]
+input AgencyUpdateOneWithoutTeammembersInput {
+  create: AgencyCreateWithoutTeammembersInput
+  connect: AgencyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: AgencyUpdateWithoutTeammembersDataInput
+  upsert: AgencyUpsertWithoutTeammembersInput
 }
 
-input KittenUpdateWithoutOwnerDataInput {
+input AgencyUpdateWithoutTeammembersDataInput {
+  masteruser: String
   name: String
-  color: String
-  isFat: Boolean
-  isFierce: Boolean
+  img: String
 }
 
-input KittenUpdateWithWhereUniqueWithoutOwnerInput {
-  where: KittenWhereUniqueInput!
-  data: KittenUpdateWithoutOwnerDataInput!
+input AgencyUpsertWithoutTeammembersInput {
+  update: AgencyUpdateWithoutTeammembersDataInput!
+  create: AgencyCreateWithoutTeammembersInput!
 }
 
-input KittenUpsertWithWhereUniqueWithoutOwnerInput {
-  where: KittenWhereUniqueInput!
-  update: KittenUpdateWithoutOwnerDataInput!
-  create: KittenCreateWithoutOwnerInput!
-}
-
-input KittenWhereInput {
+input AgencyWhereInput {
   """Logical AND on all given filters."""
-  AND: [KittenWhereInput!]
+  AND: [AgencyWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [KittenWhereInput!]
+  OR: [AgencyWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [KittenWhereInput!]
+  NOT: [AgencyWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -216,6 +183,46 @@ input KittenWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  masteruser: String
+
+  """All values that are not equal to given value."""
+  masteruser_not: String
+
+  """All values that are contained in given list."""
+  masteruser_in: [String!]
+
+  """All values that are not contained in given list."""
+  masteruser_not_in: [String!]
+
+  """All values less than the given value."""
+  masteruser_lt: String
+
+  """All values less than or equal the given value."""
+  masteruser_lte: String
+
+  """All values greater than the given value."""
+  masteruser_gt: String
+
+  """All values greater than or equal the given value."""
+  masteruser_gte: String
+
+  """All values containing the given string."""
+  masteruser_contains: String
+
+  """All values not containing the given string."""
+  masteruser_not_contains: String
+
+  """All values starting with the given string."""
+  masteruser_starts_with: String
+
+  """All values not starting with the given string."""
+  masteruser_not_starts_with: String
+
+  """All values ending with the given string."""
+  masteruser_ends_with: String
+
+  """All values not ending with the given string."""
+  masteruser_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -256,60 +263,73 @@ input KittenWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  color: String
+  img: String
 
   """All values that are not equal to given value."""
-  color_not: String
+  img_not: String
 
   """All values that are contained in given list."""
-  color_in: [String!]
+  img_in: [String!]
 
   """All values that are not contained in given list."""
-  color_not_in: [String!]
+  img_not_in: [String!]
 
   """All values less than the given value."""
-  color_lt: String
+  img_lt: String
 
   """All values less than or equal the given value."""
-  color_lte: String
+  img_lte: String
 
   """All values greater than the given value."""
-  color_gt: String
+  img_gt: String
 
   """All values greater than or equal the given value."""
-  color_gte: String
+  img_gte: String
 
   """All values containing the given string."""
-  color_contains: String
+  img_contains: String
 
   """All values not containing the given string."""
-  color_not_contains: String
+  img_not_contains: String
 
   """All values starting with the given string."""
-  color_starts_with: String
+  img_starts_with: String
 
   """All values not starting with the given string."""
-  color_not_starts_with: String
+  img_not_starts_with: String
 
   """All values ending with the given string."""
-  color_ends_with: String
+  img_ends_with: String
 
   """All values not ending with the given string."""
-  color_not_ends_with: String
-  isFat: Boolean
-
-  """All values that are not equal to given value."""
-  isFat_not: Boolean
-  isFierce: Boolean
-
-  """All values that are not equal to given value."""
-  isFierce_not: Boolean
-  owner: UserWhereInput
+  img_not_ends_with: String
+  teammembers_every: UserWhereInput
+  teammembers_some: UserWhereInput
+  teammembers_none: UserWhereInput
 }
 
-input KittenWhereUniqueInput {
+input AgencyWhereUniqueInput {
   id: ID
 }
+
+type AggregateAgency {
+  count: Int!
+}
+
+type AggregatePost {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+scalar DateTime
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -320,22 +340,22 @@ scalar Long
 type Mutation {
   createPost(data: PostCreateInput!): Post!
   createUser(data: UserCreateInput!): User!
-  createKitten(data: KittenCreateInput!): Kitten!
+  createAgency(data: AgencyCreateInput!): Agency!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateKitten(data: KittenUpdateInput!, where: KittenWhereUniqueInput!): Kitten
+  updateAgency(data: AgencyUpdateInput!, where: AgencyWhereUniqueInput!): Agency
   deletePost(where: PostWhereUniqueInput!): Post
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteKitten(where: KittenWhereUniqueInput!): Kitten
+  deleteAgency(where: AgencyWhereUniqueInput!): Agency
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertKitten(where: KittenWhereUniqueInput!, create: KittenCreateInput!, update: KittenUpdateInput!): Kitten!
+  upsertAgency(where: AgencyWhereUniqueInput!, create: AgencyCreateInput!, update: AgencyUpdateInput!): Agency!
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyKittens(data: KittenUpdateInput!, where: KittenWhereInput): BatchPayload!
+  updateManyAgencies(data: AgencyUpdateInput!, where: AgencyWhereInput): BatchPayload!
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyKittens(where: KittenWhereInput): BatchPayload!
+  deleteManyAgencies(where: AgencyWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -695,13 +715,13 @@ input PostWhereUniqueInput {
 type Query {
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  kittens(where: KittenWhereInput, orderBy: KittenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kitten]!
+  agencies(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Agency]!
   post(where: PostWhereUniqueInput!): Post
   user(where: UserWhereUniqueInput!): User
-  kitten(where: KittenWhereUniqueInput!): Kitten
+  agency(where: AgencyWhereUniqueInput!): Agency
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  kittensConnection(where: KittenWhereInput, orderBy: KittenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KittenConnection!
+  agenciesConnection(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AgencyConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -713,7 +733,7 @@ type Query {
 type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  kitten(where: KittenSubscriptionWhereInput): KittenSubscriptionPayload
+  agency(where: AgencySubscriptionWhereInput): AgencySubscriptionPayload
 }
 
 type User implements Node {
@@ -722,7 +742,7 @@ type User implements Node {
   password: String!
   name: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
-  kittens(where: KittenWhereInput, orderBy: KittenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kitten!]
+  agency(where: AgencyWhereInput): Agency
 }
 
 """A connection to a list of items."""
@@ -740,12 +760,12 @@ input UserCreateInput {
   password: String!
   name: String!
   posts: PostCreateManyWithoutAuthorInput
-  kittens: KittenCreateManyWithoutOwnerInput
+  agency: AgencyCreateOneWithoutTeammembersInput
 }
 
-input UserCreateOneWithoutKittensInput {
-  create: UserCreateWithoutKittensInput
-  connect: UserWhereUniqueInput
+input UserCreateManyWithoutAgencyInput {
+  create: [UserCreateWithoutAgencyInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneWithoutPostsInput {
@@ -753,7 +773,7 @@ input UserCreateOneWithoutPostsInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutKittensInput {
+input UserCreateWithoutAgencyInput {
   email: String!
   password: String!
   name: String!
@@ -764,7 +784,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   password: String!
   name: String!
-  kittens: KittenCreateManyWithoutOwnerInput
+  agency: AgencyCreateOneWithoutTeammembersInput
 }
 
 """An edge in a connection."""
@@ -842,15 +862,16 @@ input UserUpdateInput {
   password: String
   name: String
   posts: PostUpdateManyWithoutAuthorInput
-  kittens: KittenUpdateManyWithoutOwnerInput
+  agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
-input UserUpdateOneWithoutKittensInput {
-  create: UserCreateWithoutKittensInput
-  connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateWithoutKittensDataInput
-  upsert: UserUpsertWithoutKittensInput
+input UserUpdateManyWithoutAgencyInput {
+  create: [UserCreateWithoutAgencyInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutAgencyInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutAgencyInput!]
 }
 
 input UserUpdateOneWithoutPostsInput {
@@ -861,7 +882,7 @@ input UserUpdateOneWithoutPostsInput {
   upsert: UserUpsertWithoutPostsInput
 }
 
-input UserUpdateWithoutKittensDataInput {
+input UserUpdateWithoutAgencyDataInput {
   email: String
   password: String
   name: String
@@ -872,17 +893,23 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   name: String
-  kittens: KittenUpdateManyWithoutOwnerInput
+  agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
-input UserUpsertWithoutKittensInput {
-  update: UserUpdateWithoutKittensDataInput!
-  create: UserCreateWithoutKittensInput!
+input UserUpdateWithWhereUniqueWithoutAgencyInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutAgencyDataInput!
 }
 
 input UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput!
   create: UserCreateWithoutPostsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutAgencyInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutAgencyDataInput!
+  create: UserCreateWithoutAgencyInput!
 }
 
 input UserWhereInput {
@@ -1057,9 +1084,7 @@ input UserWhereInput {
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
-  kittens_every: KittenWhereInput
-  kittens_some: KittenWhereInput
-  kittens_none: KittenWhereInput
+  agency: AgencyWhereInput
 }
 
 input UserWhereUniqueInput {
