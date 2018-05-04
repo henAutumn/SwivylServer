@@ -1,5 +1,6 @@
-# source: https://us1.prisma.sh/public-amberlantern-148/my-app/dev
-# timestamp: Thu May 03 2018 13:22:31 GMT-0400 (US Eastern Daylight Time)
+# source: https://us1.prisma.sh/public-pintohorn-91/src/dev
+# timestamp: Thu May 03 2018 13:22:08 GMT-0400 (US Eastern Daylight Time)
+
 
 type AggregateKitten {
   count: Int!
@@ -24,8 +25,9 @@ type Kitten implements Node {
   id: ID!
   name: String!
   color: String!
-  fat: Boolean!
-  fierce: Boolean!
+  isFat: Boolean!
+  isFierce: Boolean!
+
   owner(where: UserWhereInput): User!
 }
 
@@ -42,8 +44,9 @@ type KittenConnection {
 input KittenCreateInput {
   name: String!
   color: String!
-  fat: Boolean!
-  fierce: Boolean!
+  isFat: Boolean!
+  isFierce: Boolean!
+
   owner: UserCreateOneWithoutKittensInput!
 }
 
@@ -55,8 +58,9 @@ input KittenCreateManyWithoutOwnerInput {
 input KittenCreateWithoutOwnerInput {
   name: String!
   color: String!
-  fat: Boolean!
-  fierce: Boolean!
+  isFat: Boolean!
+  isFierce: Boolean!
+
 }
 
 """An edge in a connection."""
@@ -75,10 +79,11 @@ enum KittenOrderByInput {
   name_DESC
   color_ASC
   color_DESC
-  fat_ASC
-  fat_DESC
-  fierce_ASC
-  fierce_DESC
+  isFat_ASC
+  isFat_DESC
+  isFierce_ASC
+  isFierce_DESC
+
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -89,9 +94,9 @@ type KittenPreviousValues {
   id: ID!
   name: String!
   color: String!
-  fat: Boolean!
-  fierce: Boolean!
-}
+  isFat: Boolean!
+  isFierce: Boolean!
+
 
 type KittenSubscriptionPayload {
   mutation: MutationType!
@@ -135,8 +140,8 @@ input KittenSubscriptionWhereInput {
 input KittenUpdateInput {
   name: String
   color: String
-  fat: Boolean
-  fierce: Boolean
+
+
   owner: UserUpdateOneWithoutKittensInput
 }
 
@@ -152,8 +157,9 @@ input KittenUpdateManyWithoutOwnerInput {
 input KittenUpdateWithoutOwnerDataInput {
   name: String
   color: String
-  fat: Boolean
-  fierce: Boolean
+  isFat: Boolean
+  isFierce: Boolean
+
 }
 
 input KittenUpdateWithWhereUniqueWithoutOwnerInput {
@@ -296,14 +302,15 @@ input KittenWhereInput {
 
   """All values not ending with the given string."""
   color_not_ends_with: String
-  fat: Boolean
+  isFat: Boolean
 
   """All values that are not equal to given value."""
-  fat_not: Boolean
-  fierce: Boolean
+  isFat_not: Boolean
+  isFierce: Boolean
 
   """All values that are not equal to given value."""
-  fierce_not: Boolean
+  isFierce_not: Boolean
+
   owner: UserWhereInput
 }
 

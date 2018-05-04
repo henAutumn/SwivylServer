@@ -14,23 +14,15 @@ type User {
   password: String!
   name: String!
   posts: [Post!]!
-  agency: Agency!
-  # kittens: [Kitten!]!
+  kittens: [Kitten!]!
 }
 
-type Agency {
-  id: ID! @unique
-  masteruser: User!
-  name: String!
-  img: String!
-  teammembers: [User!]!
-  }
-
-# type Kitten {
+# type Kitten{
 #   id: ID! @unique
 #   name: String!
 #   color: String!
-#   fat: Boolean!
-#   fierce: Boolean!
+#   isFat: Boolean!
+#   isFierce: Boolean!
 #   owner: User!
 # }
+
