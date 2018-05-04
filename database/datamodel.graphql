@@ -14,4 +14,14 @@ type User {
   password: String!
   name: String!
   posts: [Post!]!
+  kittens: [Kitten!]!
 }
+
+# type Kitten{
+#   id: ID! @unique
+#   name: String!
+#   color: String!
+#   isFat: Boolean!
+#   isFierce: Boolean!
+#   owner: User!
+# }

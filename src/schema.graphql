@@ -5,6 +5,7 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   me: User
+  # kittens:[Kitten!]!
 }
 
 type Mutation {
@@ -13,6 +14,12 @@ type Mutation {
   createDraft(title: String!, text: String!): Post!
   publish(id: ID!): Post!
   deletePost(id: ID!): Post!
+  
+  # #kittens mutation
+
+  # createKitten(name: String!, color: String!, isFat: Boolean!, isFierce: Boolean!): Kitten!
+  # updateKitten(id:ID!, name: String, color: String, isFat: Boolean, isFierce: Boolean):Kitten!
+  # deleteKitten(id:ID!):Kitten!
 }
 
 type Subscription {
