@@ -35,4 +35,5 @@ type User {
   email: String!
   name: String!
   posts: [Post!]!
+  token: String!
 }
