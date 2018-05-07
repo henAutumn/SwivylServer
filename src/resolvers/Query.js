@@ -27,9 +27,12 @@ const Query = {
     return ctx.db.query.user({ where: { id } }, info)
   },
 
-  agency(parent, args, ctx, info) {
+  agencies(parent, args, ctx, info) {
     const id = getUserId(ctx)
-    return ctx.db.query.agency({ where: { id }}, info)
+    const where = {
+      masteruser: id,
+    }
+    return ctx.db.query.agencies({where}, info)
 
     }
   
