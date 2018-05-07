@@ -23,4 +23,5 @@ type Agency {
   name: String!
   img: String!
   teammembers: [User!]!
+   
   }
