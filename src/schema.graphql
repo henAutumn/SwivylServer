@@ -5,7 +5,7 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   me: User
-  agency: [Agency!]!
+  agencies: [Agency!]!
 }
 
 type Mutation {
@@ -13,15 +13,13 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
 
   #Agencies
-  createAgency(id: ID!, masteruser: String!, name: String!, img: String!): Agency!
+  createAgency(masteruser: String!, name: String!, img: String!): Agency!
+  updateAgency(id: ID!, name: String, img: String): Agency!
+  deleteAgency(id: ID!): Agency!
+  
   # createDraft(title: String!, text: String!): Post!
   # publish(id: ID!): Post!
   # deletePost(id: ID!): Post!
-  
-  # kittens mutation
-  # createKitten(name: String!, color: String!, fat: Boolean!, fierce: Boolean!): Kitten!
-  # updateKitten(id: ID!, name: String, color: String, fat: Boolean, fierce: Boolean): Kitten!
-  # deleteKitten(id: ID!): Kitten!
 }
 
 type Subscription {
