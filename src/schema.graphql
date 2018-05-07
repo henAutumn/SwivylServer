@@ -12,7 +12,7 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 
-  #Agencies
+  #Agenciesgit
   createAgency(id: ID!, masteruser: String!, name: String!, img: String!): Agency!
   # createDraft(title: String!, text: String!): Post!
   # publish(id: ID!): Post!
