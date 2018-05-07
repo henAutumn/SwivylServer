@@ -1,17 +1,22 @@
-# import Agency from "./generated/prisma.graphql"
+# import agency from "./generated/prisma.graphql"
 
 type Query {
   
   # agency(id: ID!): Agency!
   me: User
-  # kittens:[Kitten!]!
+  agencies: [Agency!]!
 }
 # cjgs8x2iz3du40b06lib3xjag
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createAgency(id:ID! masteruser:String! name:String! img:String!): Agency!
+
+  #Agencies
+  createAgency(masteruser: String!, name: String!, img: String!): Agency!
+  updateAgency(id:ID!, name:String, img:String):Agency!
+  deleteAgency(id:ID!): Agency!
+  # createDraft(title: String!, text: String!): Post!
   # publish(id: ID!): Post!
   # deletePost(id: ID!): Post!
    
@@ -41,10 +46,11 @@ type User {
   agency: Agency!
   # isMU: Boolean!
 }
+
 type Agency {
-  id: ID! 
+  id: ID!
   masteruser: String!
   name: String!
   img: String!
-  teammembers: [User!]
-  }
+  teammembers: [User!]!
+}
