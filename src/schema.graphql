@@ -13,6 +13,8 @@ type Mutation {
   createAgency(masteruser: String!, name: String!, img: String!): Agency!
   updateAgency(id:ID!, name:String, img:String):Agency!
   deleteAgency(id:ID!): Agency!
+
+  createUser(email:String!, password:String!, name:String!):AuthPayload!
 }
 
 type Subscription {
