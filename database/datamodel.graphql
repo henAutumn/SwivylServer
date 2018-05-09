@@ -12,9 +12,10 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  name: String!
-  posts: [Post!]!
+  firstName: String
+  lastName: String
   agency: Agency
+  deves:String
 }
 
 type Agency {
