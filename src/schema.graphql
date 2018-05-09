@@ -6,7 +6,7 @@ type Query {
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
+  signup(email: String!, password: String!, firstName: String, lastName: String): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 
   #Agencies
@@ -14,7 +14,8 @@ type Mutation {
   updateAgency(id:ID!, name:String, img:String):Agency!
   deleteAgency(id:ID!): Agency!
 
-  createUser(email:String!, password:String!, name:String!):AuthPayload!
+  #Users
+  createUser(email:String!, password:String!, firstName:String, lastName:String):AuthPayload!
 }
 
 type Subscription {
@@ -30,8 +31,8 @@ type User {
   id: ID! 
   email: String! 
   password: String!
-  name: String!
-  posts: [Post!]!
+  firstName: String
+  lastName: String
   agency: Agency!
   # isMU: Boolean!
 }
