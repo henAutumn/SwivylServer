@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/public-amberlantern-148/my-app/dev
-# timestamp: Fri May 04 2018 10:33:21 GMT-0400 (US Eastern Daylight Time)
+# timestamp: Wed May 09 2018 16:24:53 GMT-0400 (US Eastern Daylight Time)
 
 type Agency implements Node {
   id: ID!
@@ -409,18 +409,7 @@ input PostCreateInput {
   isPublished: Boolean
   title: String!
   text: String!
-  author: UserCreateOneWithoutPostsInput!
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateWithoutAuthorInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
+  author: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -499,33 +488,7 @@ input PostUpdateInput {
   isPublished: Boolean
   title: String
   text: String
-  author: UserUpdateOneWithoutPostsInput
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  delete: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  isPublished: Boolean
-  title: String
-  text: String
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
+  author: UserUpdateOneInput
 }
 
 input PostWhereInput {
@@ -740,9 +703,10 @@ type User implements Node {
   id: ID!
   email: String!
   password: String!
-  name: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  firstName: String
+  lastName: String
   agency(where: AgencyWhereInput): Agency
+  deves: String
 }
 
 """A connection to a list of items."""
@@ -758,8 +722,9 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
-  name: String!
-  posts: PostCreateManyWithoutAuthorInput
+  firstName: String
+  lastName: String
+  deves: String
   agency: AgencyCreateOneWithoutTeammembersInput
 }
 
@@ -768,23 +733,17 @@ input UserCreateManyWithoutAgencyInput {
   connect: [UserWhereUniqueInput!]
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateOneInput {
+  create: UserCreateInput
   connect: UserWhereUniqueInput
 }
 
 input UserCreateWithoutAgencyInput {
   email: String!
   password: String!
-  name: String!
-  posts: PostCreateManyWithoutAuthorInput
-}
-
-input UserCreateWithoutPostsInput {
-  email: String!
-  password: String!
-  name: String!
-  agency: AgencyCreateOneWithoutTeammembersInput
+  firstName: String
+  lastName: String
+  deves: String
 }
 
 """An edge in a connection."""
@@ -803,8 +762,12 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
-  name_ASC
-  name_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  deves_ASC
+  deves_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -815,7 +778,9 @@ type UserPreviousValues {
   id: ID!
   email: String!
   password: String!
-  name: String!
+  firstName: String
+  lastName: String
+  deves: String
 }
 
 type UserSubscriptionPayload {
@@ -857,11 +822,21 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  deves: String
+  agency: AgencyUpdateOneWithoutTeammembersInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
-  name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  firstName: String
+  lastName: String
+  deves: String
   agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
@@ -874,26 +849,20 @@ input UserUpdateManyWithoutAgencyInput {
   upsert: [UserUpsertWithWhereUniqueWithoutAgencyInput!]
 }
 
-input UserUpdateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserUpdateOneInput {
+  create: UserCreateInput
   connect: UserWhereUniqueInput
   delete: Boolean
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateWithoutAgencyDataInput {
   email: String
   password: String
-  name: String
-  posts: PostUpdateManyWithoutAuthorInput
-}
-
-input UserUpdateWithoutPostsDataInput {
-  email: String
-  password: String
-  name: String
-  agency: AgencyUpdateOneWithoutTeammembersInput
+  firstName: String
+  lastName: String
+  deves: String
 }
 
 input UserUpdateWithWhereUniqueWithoutAgencyInput {
@@ -901,9 +870,9 @@ input UserUpdateWithWhereUniqueWithoutAgencyInput {
   data: UserUpdateWithoutAgencyDataInput!
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutAgencyInput {
@@ -1041,49 +1010,126 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
-  name: String
+  firstName: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  firstName_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  firstName_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  firstName_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  firstName_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  firstName_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  firstName_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  firstName_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  firstName_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  firstName_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  firstName_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  firstName_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  firstName_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
+  firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
+  deves: String
+
+  """All values that are not equal to given value."""
+  deves_not: String
+
+  """All values that are contained in given list."""
+  deves_in: [String!]
+
+  """All values that are not contained in given list."""
+  deves_not_in: [String!]
+
+  """All values less than the given value."""
+  deves_lt: String
+
+  """All values less than or equal the given value."""
+  deves_lte: String
+
+  """All values greater than the given value."""
+  deves_gt: String
+
+  """All values greater than or equal the given value."""
+  deves_gte: String
+
+  """All values containing the given string."""
+  deves_contains: String
+
+  """All values not containing the given string."""
+  deves_not_contains: String
+
+  """All values starting with the given string."""
+  deves_starts_with: String
+
+  """All values not starting with the given string."""
+  deves_not_starts_with: String
+
+  """All values ending with the given string."""
+  deves_ends_with: String
+
+  """All values not ending with the given string."""
+  deves_not_ends_with: String
   agency: AgencyWhereInput
 }
 

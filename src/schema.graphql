@@ -1,29 +1,22 @@
 # import agency from "./generated/prisma.graphql"
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
   me: User
   agencies: [Agency!]!
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
+  signup(email: String!, password: String!, firstName: String, lastName: String): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 
   #Agencies
   createAgency(masteruser: String!, name: String!, img: String!): Agency!
-  updateAgency(id: ID!, name: String, img: String): Agency!
-  deleteAgency(id: ID!): Agency!
-  # createDraft(title: String!, text: String!): Post!
-  # publish(id: ID!): Post!
-  # deletePost(id: ID!): Post!
-  
-  # kittens mutation
-  # createKitten(name: String!, color: String!, fat: Boolean!, fierce: Boolean!): Kitten!
-  # updateKitten(id: ID!, name: String, color: String, fat: Boolean, fierce: Boolean): Kitten!
-  # deleteKitten(id: ID!): Kitten!
+  updateAgency(id:ID!, name:String, img:String):Agency!
+  deleteAgency(id:ID!): Agency!
+
+
+  #Users
+  createUser(email:String!, password:String!, firstName:String, lastName:String):AuthPayload!
 }
 
 type Subscription {
@@ -36,12 +29,13 @@ type AuthPayload {
 }
 
 type User {
-  id: ID!
-  email: String!
+  id: ID! 
+  email: String! 
   password: String!
-  name: String!
-  posts: [Post!]!
-  agency: Agency
+  firstName: String
+  lastName: String
+  agency: Agency!
+  # isMU: Boolean!
 }
 
 type Agency {
