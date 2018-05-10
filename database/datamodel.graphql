@@ -24,4 +24,12 @@ type Agency {
   name: String!
   img: String!
   teammembers: [User!]!
-  }
+}
+
+# type Upload {
+#   id: ID! @unique
+#   name: String!
+#   type: String!
+#   size: Int!
+#   path: String!
+# }

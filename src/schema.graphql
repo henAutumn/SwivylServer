@@ -18,6 +18,9 @@ type Mutation {
 
   #Users
   createUser(email:String!, password:String!, firstName:String, lastName:String):AuthPayload!
+
+  #ImgUpload
+  # createUpload(name: String!, type: String!, size: Int!, path: String!): Upload!
 }
 
 type Subscription {
@@ -46,3 +49,11 @@ type Agency {
   img: String!
   teammembers: [User!]!
 }
+
+# type Upload {
+#   id: ID!
+#   name: String!
+#   type: String!
+#   size: Int!
+#   path: String!
+# }
