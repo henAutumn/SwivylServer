@@ -3,6 +3,7 @@
 type Query {
   me: User
   agencies: [Agency!]!
+  users: [User!]!
 }
 
 type Mutation {
