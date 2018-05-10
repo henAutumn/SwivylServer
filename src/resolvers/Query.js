@@ -14,6 +14,9 @@ const Query = {
     }
     return ctx.db.query.agencies( {where}, info)
 
+    },
+    users(parents, args, ctx, info){
+      return ctx.db.query.users(info)
     }
 }
 
