@@ -1,6 +1,8 @@
 const { GraphQLServer } = require('graphql-yoga')
 const { Prisma } = require('prisma-binding')
 const resolvers = require('./resolvers')
+const { apolloUploadExpress } = require("apollo-upload-server")
+const { graphqlExpress } = require("graphql-server-express")
 
 const db = new Prisma({
   typeDefs: 'src/generated/prisma.graphql', // the auto-generated GraphQL schema of the Prisma API
