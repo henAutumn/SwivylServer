@@ -25,6 +25,7 @@ type Mutation {
 
 type Subscription {
   feedSubscription: PostSubscriptionPayload!
+  userSubscription: UserSubscriptionPayload!
 }
 
 type AuthPayload {
