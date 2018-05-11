@@ -26,10 +26,10 @@ type Agency {
   teammembers: [User!]!
 }
 
-# type Upload {
-#   id: ID! @unique
-#   name: String!
-#   type: String!
-#   size: Int!
-#   path: String!
-# }
+type Upload {
+  id: ID! @unique
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
