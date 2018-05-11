@@ -1,22 +1,31 @@
-# import Post from "./generated/prisma.graphql"
+# import agency from "./generated/prisma.graphql"
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
   me: User
+  agencies: [Agency!]!
+  users: [User!]!
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
+  signup(email: String!, password: String!, firstName: String, lastName: String): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
+
+  #Agencies
+  createAgency(masteruser: String!, name: String!, img: String!): Agency!
+  updateAgency(id:ID!, name:String, img:String):Agency!
+  deleteAgency(id:ID!): Agency!
+
+
+  #Users
+  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!):AuthPayload!
+
+  #ImgUpload
+  createUpload(name: String!, type: String!, size: Int!, path: String): Upload!
 }
 
 type Subscription {
   feedSubscription: PostSubscriptionPayload!
+  userSubscription: UserSubscriptionPayload!
 }
 
 type AuthPayload {
@@ -25,8 +34,28 @@ type AuthPayload {
 }
 
 type User {
+  id: ID! 
+  email: String! 
+  password: String!
+  firstName: String
+  lastName: String
+  agency: Agency!
+  title: String
+  # isMU: Boolean!
+}
+
+type Agency {
   id: ID!
-  email: String!
+  masteruser: String!
   name: String!
-  posts: [Post!]!
+  img: String!
+  teammembers: [User!]!
+}
+
+type Upload {
+  id: ID!
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
 }

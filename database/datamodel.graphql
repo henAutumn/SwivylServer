@@ -12,6 +12,25 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  firstName: String
+  lastName: String
+  agency: Agency
+  deves:String
+  title: String
+}
+
+type Agency {
+  id: ID! @unique
+  masteruser: String!
   name: String!
-  posts: [Post!]!
+  img: String!
+  teammembers: [User!]!
+}
+
+type Upload {
+  id: ID! @unique
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
 }
