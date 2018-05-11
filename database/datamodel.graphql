@@ -16,6 +16,7 @@ type User {
   lastName: String
   agency: Agency
   deves:String
+  title: String
 }
 
 type Agency {
