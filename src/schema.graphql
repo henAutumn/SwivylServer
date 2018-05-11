@@ -17,10 +17,10 @@ type Mutation {
 
 
   #Users
-  createUser(email:String!, password:String!, firstName:String, lastName:String):AuthPayload!
+  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!):AuthPayload!
 
   #ImgUpload
-  # createUpload(name: String!, type: String!, size: Int!, path: String!): Upload!
+  createUpload(name: String!, type: String!, size: Int!, path: String): Upload!
 }
 
 type Subscription {
@@ -40,6 +40,7 @@ type User {
   firstName: String
   lastName: String
   agency: Agency!
+  title: String
   # isMU: Boolean!
 }
 
@@ -51,10 +52,10 @@ type Agency {
   teammembers: [User!]!
 }
 
-# type Upload {
-#   id: ID!
-#   name: String!
-#   type: String!
-#   size: Int!
-#   path: String!
-# }
+type Upload {
+  id: ID!
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}

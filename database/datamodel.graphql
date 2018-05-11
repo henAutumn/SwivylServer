@@ -16,6 +16,7 @@ type User {
   lastName: String
   agency: Agency
   deves:String
+  title: String
 }
 
 type Agency {
@@ -26,10 +27,10 @@ type Agency {
   teammembers: [User!]!
 }
 
-# type Upload {
-#   id: ID! @unique
-#   name: String!
-#   type: String!
-#   size: Int!
-#   path: String!
-# }
+type Upload {
+  id: ID! @unique
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
