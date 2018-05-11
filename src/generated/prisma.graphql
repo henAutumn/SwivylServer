@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/public-pintohorn-91/src/dev
-# timestamp: Thu May 10 2018 14:33:19 GMT-0400 (US Eastern Daylight Time)
+# source: https://us1.prisma.sh/public-amberlantern-148/my-app/dev
+# timestamp: Fri May 11 2018 12:52:47 GMT-0400 (US Eastern Daylight Time)
 
 type Agency implements Node {
   id: ID!
@@ -320,6 +320,10 @@ type AggregatePost {
   count: Int!
 }
 
+type AggregateUpload {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -341,21 +345,27 @@ type Mutation {
   createPost(data: PostCreateInput!): Post!
   createUser(data: UserCreateInput!): User!
   createAgency(data: AgencyCreateInput!): Agency!
+  createUpload(data: UploadCreateInput!): Upload!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateAgency(data: AgencyUpdateInput!, where: AgencyWhereUniqueInput!): Agency
+  updateUpload(data: UploadUpdateInput!, where: UploadWhereUniqueInput!): Upload
   deletePost(where: PostWhereUniqueInput!): Post
   deleteUser(where: UserWhereUniqueInput!): User
   deleteAgency(where: AgencyWhereUniqueInput!): Agency
+  deleteUpload(where: UploadWhereUniqueInput!): Upload
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertAgency(where: AgencyWhereUniqueInput!, create: AgencyCreateInput!, update: AgencyUpdateInput!): Agency!
+  upsertUpload(where: UploadWhereUniqueInput!, create: UploadCreateInput!, update: UploadUpdateInput!): Upload!
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyAgencies(data: AgencyUpdateInput!, where: AgencyWhereInput): BatchPayload!
+  updateManyUploads(data: UploadUpdateInput!, where: UploadWhereInput): BatchPayload!
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyAgencies(where: AgencyWhereInput): BatchPayload!
+  deleteManyUploads(where: UploadWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -679,12 +689,15 @@ type Query {
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   agencies(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Agency]!
+  uploads(where: UploadWhereInput, orderBy: UploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Upload]!
   post(where: PostWhereUniqueInput!): Post
   user(where: UserWhereUniqueInput!): User
   agency(where: AgencyWhereUniqueInput!): Agency
+  upload(where: UploadWhereUniqueInput!): Upload
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   agenciesConnection(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AgencyConnection!
+  uploadsConnection(where: UploadWhereInput, orderBy: UploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UploadConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -697,6 +710,309 @@ type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   agency(where: AgencySubscriptionWhereInput): AgencySubscriptionPayload
+  upload(where: UploadSubscriptionWhereInput): UploadSubscriptionPayload
+}
+
+type Upload implements Node {
+  id: ID!
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
+
+"""A connection to a list of items."""
+type UploadConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UploadEdge]!
+  aggregate: AggregateUpload!
+}
+
+input UploadCreateInput {
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
+
+"""An edge in a connection."""
+type UploadEdge {
+  """The item at the end of the edge."""
+  node: Upload!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UploadOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  size_ASC
+  size_DESC
+  path_ASC
+  path_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UploadPreviousValues {
+  id: ID!
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
+
+type UploadSubscriptionPayload {
+  mutation: MutationType!
+  node: Upload
+  updatedFields: [String!]
+  previousValues: UploadPreviousValues
+}
+
+input UploadSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UploadSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UploadSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UploadSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UploadWhereInput
+}
+
+input UploadUpdateInput {
+  name: String
+  type: String
+  size: Int
+  path: String
+}
+
+input UploadWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UploadWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UploadWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UploadWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  size: Int
+
+  """All values that are not equal to given value."""
+  size_not: Int
+
+  """All values that are contained in given list."""
+  size_in: [Int!]
+
+  """All values that are not contained in given list."""
+  size_not_in: [Int!]
+
+  """All values less than the given value."""
+  size_lt: Int
+
+  """All values less than or equal the given value."""
+  size_lte: Int
+
+  """All values greater than the given value."""
+  size_gt: Int
+
+  """All values greater than or equal the given value."""
+  size_gte: Int
+  path: String
+
+  """All values that are not equal to given value."""
+  path_not: String
+
+  """All values that are contained in given list."""
+  path_in: [String!]
+
+  """All values that are not contained in given list."""
+  path_not_in: [String!]
+
+  """All values less than the given value."""
+  path_lt: String
+
+  """All values less than or equal the given value."""
+  path_lte: String
+
+  """All values greater than the given value."""
+  path_gt: String
+
+  """All values greater than or equal the given value."""
+  path_gte: String
+
+  """All values containing the given string."""
+  path_contains: String
+
+  """All values not containing the given string."""
+  path_not_contains: String
+
+  """All values starting with the given string."""
+  path_starts_with: String
+
+  """All values not starting with the given string."""
+  path_not_starts_with: String
+
+  """All values ending with the given string."""
+  path_ends_with: String
+
+  """All values not ending with the given string."""
+  path_not_ends_with: String
+}
+
+input UploadWhereUniqueInput {
+  id: ID
 }
 
 type User implements Node {
@@ -707,6 +1023,7 @@ type User implements Node {
   lastName: String
   agency(where: AgencyWhereInput): Agency
   deves: String
+  title: String
 }
 
 """A connection to a list of items."""
@@ -725,6 +1042,7 @@ input UserCreateInput {
   firstName: String
   lastName: String
   deves: String
+  title: String
   agency: AgencyCreateOneWithoutTeammembersInput
 }
 
@@ -744,6 +1062,7 @@ input UserCreateWithoutAgencyInput {
   firstName: String
   lastName: String
   deves: String
+  title: String
 }
 
 """An edge in a connection."""
@@ -768,6 +1087,8 @@ enum UserOrderByInput {
   lastName_DESC
   deves_ASC
   deves_DESC
+  title_ASC
+  title_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -781,6 +1102,7 @@ type UserPreviousValues {
   firstName: String
   lastName: String
   deves: String
+  title: String
 }
 
 type UserSubscriptionPayload {
@@ -828,6 +1150,7 @@ input UserUpdateDataInput {
   firstName: String
   lastName: String
   deves: String
+  title: String
   agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
@@ -837,6 +1160,7 @@ input UserUpdateInput {
   firstName: String
   lastName: String
   deves: String
+  title: String
   agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
@@ -863,6 +1187,7 @@ input UserUpdateWithoutAgencyDataInput {
   firstName: String
   lastName: String
   deves: String
+  title: String
 }
 
 input UserUpdateWithWhereUniqueWithoutAgencyInput {
@@ -1130,6 +1455,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   deves_not_ends_with: String
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
   agency: AgencyWhereInput
 }
 
