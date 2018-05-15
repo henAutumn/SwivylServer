@@ -1,5 +1,8 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { getUserId } = require('../../utils')
+
+
 
 const auth = {
   async signup(parent, args, ctx, info) {
@@ -41,6 +44,28 @@ const auth = {
       user,
     }
   },
+  async updateUser(parent, { id, email, password, firstName, lastName, title }, ctx, info) {
+    return ctx.db.mutation.updateUser(
+      {
+        where: { id },
+        data:{
+          email,
+          password, 
+          firstName,
+          lastName,
+          title
+        }
+        
+      },
+      info
+    )
+  },
+  async deleteUser(parent, { id }, ctx, info) {
+    return ctx.db.mutation.deleteUser(
+      { where: { id } }
+    )
+  }
 }
+
 
 module.exports = { auth }
