@@ -1,9 +1,4 @@
 const Subscription = {
-  feedSubscription: {
-    subscribe: (parent, args, ctx, info) => {
-      return ctx.db.subscription.post({}, info)
-    },
-  },
   userSubscription:{
     subscribe: (parent, args, ctx, info ) =>{
       return ctx.db.subscription.user({}, info)

@@ -18,13 +18,14 @@ type Mutation {
 
   #Users
   createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!):AuthPayload!
+  updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, title:String):User!
+  deleteUser(id:ID!):User!
 
   #ImgUpload
   createUpload(name: String!, type: String!, size: Int!, path: String): Upload!
 }
 
 type Subscription {
-  feedSubscription: PostSubscriptionPayload!
   userSubscription: UserSubscriptionPayload!
 }
 
@@ -41,7 +42,6 @@ type User {
   lastName: String
   agency: Agency!
   title: String
-  # isMU: Boolean!
 }
 
 type Agency {
