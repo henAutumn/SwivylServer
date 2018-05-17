@@ -17,8 +17,8 @@ type Mutation {
 
 
   #Users
-  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!):AuthPayload!
-  updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, title:String):User!
+  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!, isMU:Boolean):AuthPayload!
+  updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, title:String, isMU:Boolean):User!
   deleteUser(id:ID!):User!
 
   #ImgUpload
@@ -42,6 +42,7 @@ type User {
   lastName: String
   agency: Agency!
   title: String
+  isMU: Boolean
 }
 
 type Agency {

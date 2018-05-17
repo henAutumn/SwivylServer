@@ -44,7 +44,7 @@ const auth = {
       user,
     }
   },
-  async updateUser(parent, { id, email, password, firstName, lastName, title }, ctx, info) {
+  async updateUser(parent, { id, email, password, firstName, lastName, title , isMU}, ctx, info) {
     return ctx.db.mutation.updateUser(
       {
         where: { id },
@@ -53,7 +53,8 @@ const auth = {
           password, 
           firstName,
           lastName,
-          title
+          title,
+          isMU
         }
         
       },

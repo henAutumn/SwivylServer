@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/public-amberlantern-148/my-app/dev
-# timestamp: Tue May 15 2018 22:00:05 GMT-0400 (US Eastern Daylight Time)
+# timestamp: Thu May 17 2018 11:51:56 GMT-0400 (US Eastern Daylight Time)
 
 type Agency implements Node {
   id: ID!
@@ -717,6 +717,7 @@ type User implements Node {
   lastName: String
   agency(where: AgencyWhereInput): Agency
   title: String
+  isMU: Boolean
 }
 
 """A connection to a list of items."""
@@ -735,6 +736,7 @@ input UserCreateInput {
   firstName: String
   lastName: String
   title: String
+  isMU: Boolean
   agency: AgencyCreateOneWithoutTeammembersInput
 }
 
@@ -749,6 +751,7 @@ input UserCreateWithoutAgencyInput {
   firstName: String
   lastName: String
   title: String
+  isMU: Boolean
 }
 
 """An edge in a connection."""
@@ -773,6 +776,8 @@ enum UserOrderByInput {
   lastName_DESC
   title_ASC
   title_DESC
+  isMU_ASC
+  isMU_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -786,6 +791,7 @@ type UserPreviousValues {
   firstName: String
   lastName: String
   title: String
+  isMU: Boolean
 }
 
 type UserSubscriptionPayload {
@@ -833,6 +839,7 @@ input UserUpdateInput {
   firstName: String
   lastName: String
   title: String
+  isMU: Boolean
   agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
@@ -851,6 +858,7 @@ input UserUpdateWithoutAgencyDataInput {
   firstName: String
   lastName: String
   title: String
+  isMU: Boolean
 }
 
 input UserUpdateWithWhereUniqueWithoutAgencyInput {
@@ -1113,6 +1121,10 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  isMU: Boolean
+
+  """All values that are not equal to given value."""
+  isMU_not: Boolean
   agency: AgencyWhereInput
 }
 
