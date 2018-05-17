@@ -16,11 +16,12 @@ const agency = {
     )
   },
 
-  async updateAgency(parent, { id, name, img }, ctx, info) {
+  async updateAgency(parent, { masteruser, id, name, img }, ctx, info) {
     return ctx.db.mutation.updateAgency(
       {
         where: { id },
         data: {
+          masteruser,
           name,
           img
         }
@@ -31,7 +32,11 @@ const agency = {
 
   async deleteAgency(parent, { id }, ctx, info) {
     return ctx.db.mutation.deleteAgency(
-      { where: { id } }
+      { where: { id },
+      data:{
+        masteruser
+      }
+     }
     )
   }
 

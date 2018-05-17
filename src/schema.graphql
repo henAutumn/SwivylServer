@@ -12,8 +12,8 @@ type Mutation {
 
   #Agencies
   createAgency(masteruser: String!, name: String!, img: String!): Agency!
-  updateAgency(id:ID!, name:String, img:String):Agency!
-  deleteAgency(id:ID!): Agency!
+  updateAgency(id:ID!, masteruser:String!, name:String, img:String):Agency!
+  deleteAgency(id:ID!, masteruser:String!): Agency!
 
 
   #Users
