@@ -26,9 +26,9 @@ type Mutation {
   createUpload(name: String!, type: String!, size: Int!, path: String): Upload!
 }
 
-type Subscription {
-  userSubscription: UserSubscriptionPayload!
-}
+# type Subscription {
+  # userSubscription: UserSubscriptionPayload!
+# }
 
 type AuthPayload {
   token: String!
