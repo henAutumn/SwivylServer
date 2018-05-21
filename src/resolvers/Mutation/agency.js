@@ -3,7 +3,7 @@ const { getUserId } = require('../../utils')
 const agency = {
   async createAgency(parent, { masteruser, name, img }, ctx, info) {
     const userId = getUserId(ctx);
-    if(userId == masteruser){
+    // if(userId == masteruser){
       return ctx.db.mutation.createAgency(
         {
           data: {
@@ -15,9 +15,9 @@ const agency = {
         },
         info
       )
-    } else {
-      throw new Error('Not authorized to add agency')
-    }
+    // } else {
+    //   throw new Error('Not authorized to add agency')
+    // }
     },
 
   async updateAgency(parent, { masteruser, id, name, img }, ctx, info) {
