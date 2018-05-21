@@ -39,15 +39,9 @@ type User {
   id: ID! 
   email: String! 
   password: String!
-<<<<<<< HEAD
-  firstName: String
-  lastName: String
-  agency: String
-=======
   firstName: String!
   lastName: String!
   agency: String! 
->>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
   title: String
   isMU: Boolean
 }
