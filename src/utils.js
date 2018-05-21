@@ -13,7 +13,7 @@ function getUserId(ctx) {
 }
 
 class AuthError extends Error {
-  constructor() {
+  constructor() {  
     super('Not authorized')
   }
 }

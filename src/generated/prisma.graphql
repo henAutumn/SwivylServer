@@ -1,9 +1,8 @@
 # source: https://us1.prisma.sh/public-amberlantern-148/my-app/dev
-# timestamp: Thu May 17 2018 11:51:56 GMT-0400 (US Eastern Daylight Time)
+# timestamp: Mon May 21 2018 09:37:05 GMT-0400 (US Eastern Daylight Time)
 
 type Agency implements Node {
   id: ID!
-  masteruser: String!
   name: String!
   img: String!
   teammembers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -20,21 +19,9 @@ type AgencyConnection {
 }
 
 input AgencyCreateInput {
-  masteruser: String!
   name: String!
   img: String!
-  teammembers: UserCreateManyWithoutAgencyInput
-}
-
-input AgencyCreateOneWithoutTeammembersInput {
-  create: AgencyCreateWithoutTeammembersInput
-  connect: AgencyWhereUniqueInput
-}
-
-input AgencyCreateWithoutTeammembersInput {
-  masteruser: String!
-  name: String!
-  img: String!
+  teammembers: UserCreateManyInput
 }
 
 """An edge in a connection."""
@@ -49,8 +36,6 @@ type AgencyEdge {
 enum AgencyOrderByInput {
   id_ASC
   id_DESC
-  masteruser_ASC
-  masteruser_DESC
   name_ASC
   name_DESC
   img_ASC
@@ -63,7 +48,6 @@ enum AgencyOrderByInput {
 
 type AgencyPreviousValues {
   id: ID!
-  masteruser: String!
   name: String!
   img: String!
 }
@@ -108,30 +92,9 @@ input AgencySubscriptionWhereInput {
 }
 
 input AgencyUpdateInput {
-  masteruser: String
   name: String
   img: String
-  teammembers: UserUpdateManyWithoutAgencyInput
-}
-
-input AgencyUpdateOneWithoutTeammembersInput {
-  create: AgencyCreateWithoutTeammembersInput
-  connect: AgencyWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: AgencyUpdateWithoutTeammembersDataInput
-  upsert: AgencyUpsertWithoutTeammembersInput
-}
-
-input AgencyUpdateWithoutTeammembersDataInput {
-  masteruser: String
-  name: String
-  img: String
-}
-
-input AgencyUpsertWithoutTeammembersInput {
-  update: AgencyUpdateWithoutTeammembersDataInput!
-  create: AgencyCreateWithoutTeammembersInput!
+  teammembers: UserUpdateManyInput
 }
 
 input AgencyWhereInput {
@@ -183,46 +146,6 @@ input AgencyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  masteruser: String
-
-  """All values that are not equal to given value."""
-  masteruser_not: String
-
-  """All values that are contained in given list."""
-  masteruser_in: [String!]
-
-  """All values that are not contained in given list."""
-  masteruser_not_in: [String!]
-
-  """All values less than the given value."""
-  masteruser_lt: String
-
-  """All values less than or equal the given value."""
-  masteruser_lte: String
-
-  """All values greater than the given value."""
-  masteruser_gt: String
-
-  """All values greater than or equal the given value."""
-  masteruser_gte: String
-
-  """All values containing the given string."""
-  masteruser_contains: String
-
-  """All values not containing the given string."""
-  masteruser_not_contains: String
-
-  """All values starting with the given string."""
-  masteruser_starts_with: String
-
-  """All values not starting with the given string."""
-  masteruser_not_starts_with: String
-
-  """All values ending with the given string."""
-  masteruser_ends_with: String
-
-  """All values not ending with the given string."""
-  masteruser_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -336,23 +259,23 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createAgency(data: AgencyCreateInput!): Agency!
+  createUser(data: UserCreateInput!): User!
   createUpload(data: UploadCreateInput!): Upload!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateAgency(data: AgencyUpdateInput!, where: AgencyWhereUniqueInput!): Agency
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateUpload(data: UploadUpdateInput!, where: UploadWhereUniqueInput!): Upload
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteAgency(where: AgencyWhereUniqueInput!): Agency
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteUpload(where: UploadWhereUniqueInput!): Upload
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertAgency(where: AgencyWhereUniqueInput!, create: AgencyCreateInput!, update: AgencyUpdateInput!): Agency!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertUpload(where: UploadWhereUniqueInput!, create: UploadCreateInput!, update: UploadUpdateInput!): Upload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyAgencies(data: AgencyUpdateInput!, where: AgencyWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyUploads(data: UploadUpdateInput!, where: UploadWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyAgencies(where: AgencyWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyUploads(where: UploadWhereInput): BatchPayload!
 }
 
@@ -384,14 +307,14 @@ type PageInfo {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   agencies(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Agency]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   uploads(where: UploadWhereInput, orderBy: UploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Upload]!
-  user(where: UserWhereUniqueInput!): User
   agency(where: AgencyWhereUniqueInput!): Agency
+  user(where: UserWhereUniqueInput!): User
   upload(where: UploadWhereUniqueInput!): Upload
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   agenciesConnection(where: AgencyWhereInput, orderBy: AgencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AgencyConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   uploadsConnection(where: UploadWhereInput, orderBy: UploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UploadConnection!
 
   """Fetches an object given its ID"""
@@ -402,8 +325,8 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   agency(where: AgencySubscriptionWhereInput): AgencySubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   upload(where: UploadSubscriptionWhereInput): UploadSubscriptionPayload
 }
 
@@ -713,11 +636,11 @@ type User implements Node {
   id: ID!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
-  agency(where: AgencyWhereInput): Agency
-  title: String
-  isMU: Boolean
+  firstName: String!
+  lastName: String!
+  agency: String!
+  title: String!
+  isMU: Boolean!
 }
 
 """A connection to a list of items."""
@@ -733,25 +656,16 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
-  firstName: String
-  lastName: String
-  title: String
+  firstName: String!
+  lastName: String!
+  agency: String!
+  title: String!
   isMU: Boolean
-  agency: AgencyCreateOneWithoutTeammembersInput
 }
 
-input UserCreateManyWithoutAgencyInput {
-  create: [UserCreateWithoutAgencyInput!]
+input UserCreateManyInput {
+  create: [UserCreateInput!]
   connect: [UserWhereUniqueInput!]
-}
-
-input UserCreateWithoutAgencyInput {
-  email: String!
-  password: String!
-  firstName: String
-  lastName: String
-  title: String
-  isMU: Boolean
 }
 
 """An edge in a connection."""
@@ -774,6 +688,8 @@ enum UserOrderByInput {
   firstName_DESC
   lastName_ASC
   lastName_DESC
+  agency_ASC
+  agency_DESC
   title_ASC
   title_DESC
   isMU_ASC
@@ -788,10 +704,11 @@ type UserPreviousValues {
   id: ID!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
-  title: String
-  isMU: Boolean
+  firstName: String!
+  lastName: String!
+  agency: String!
+  title: String!
+  isMU: Boolean!
 }
 
 type UserSubscriptionPayload {
@@ -833,43 +750,44 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  agency: String
+  title: String
+  isMU: Boolean
+}
+
 input UserUpdateInput {
   email: String
   password: String
   firstName: String
   lastName: String
+  agency: String
   title: String
   isMU: Boolean
-  agency: AgencyUpdateOneWithoutTeammembersInput
 }
 
-input UserUpdateManyWithoutAgencyInput {
-  create: [UserCreateWithoutAgencyInput!]
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
   connect: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutAgencyInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutAgencyInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
 }
 
-input UserUpdateWithoutAgencyDataInput {
-  email: String
-  password: String
-  firstName: String
-  lastName: String
-  title: String
-  isMU: Boolean
-}
-
-input UserUpdateWithWhereUniqueWithoutAgencyInput {
+input UserUpdateWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
-  data: UserUpdateWithoutAgencyDataInput!
+  data: UserUpdateDataInput!
 }
 
-input UserUpsertWithWhereUniqueWithoutAgencyInput {
+input UserUpsertWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
-  update: UserUpdateWithoutAgencyDataInput!
-  create: UserCreateWithoutAgencyInput!
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -1081,6 +999,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   lastName_not_ends_with: String
+  agency: String
+
+  """All values that are not equal to given value."""
+  agency_not: String
+
+  """All values that are contained in given list."""
+  agency_in: [String!]
+
+  """All values that are not contained in given list."""
+  agency_not_in: [String!]
+
+  """All values less than the given value."""
+  agency_lt: String
+
+  """All values less than or equal the given value."""
+  agency_lte: String
+
+  """All values greater than the given value."""
+  agency_gt: String
+
+  """All values greater than or equal the given value."""
+  agency_gte: String
+
+  """All values containing the given string."""
+  agency_contains: String
+
+  """All values not containing the given string."""
+  agency_not_contains: String
+
+  """All values starting with the given string."""
+  agency_starts_with: String
+
+  """All values not starting with the given string."""
+  agency_not_starts_with: String
+
+  """All values ending with the given string."""
+  agency_ends_with: String
+
+  """All values not ending with the given string."""
+  agency_not_ends_with: String
   title: String
 
   """All values that are not equal to given value."""
@@ -1125,7 +1083,6 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   isMU_not: Boolean
-  agency: AgencyWhereInput
 }
 
 input UserWhereUniqueInput {
