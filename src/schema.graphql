@@ -18,13 +18,8 @@ type Mutation {
 
 
   #Users
-<<<<<<< HEAD
-  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!, agency: String! isMU:Boolean):AuthPayload!
-  updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, agency: String, title:String, isMU:Boolean):User!
-=======
   createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!, isMU:Boolean, agency:String!):AuthPayload!
   updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, title:String, isMU:Boolean):User!
->>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
   deleteUser(id:ID!):User!
 
   #ImgUpload
