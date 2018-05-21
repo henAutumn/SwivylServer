@@ -1,21 +1,20 @@
 
+type Agency {
+  id: ID! @unique
+  name: String!
+  img:String!
+  teammembers:[User!]!
+}
+
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  firstName: String
-  lastName: String
-  agency: Agency
-  title: String
-  isMU: Boolean
-}
-
-type Agency {
-  id: ID! @unique
-  masteruser: String!
-  name: String!
-  img: String!
-  teammembers: [User!]!
+  firstName: String!
+  lastName: String!
+  agency: String!
+  title: String!
+  isMU: Boolean! @default(value: "false")
 }
 
 type Upload {

@@ -3,22 +3,28 @@
 type Query {
   me: User
   agencies: [Agency!]!
-  users: [User!]!
+  agency(id: ID!): Agency!
 }
 
 type Mutation {
-  signup(email: String!, password: String!, firstName: String, lastName: String, agency: String, isMU: Boolean): AuthPayload!
+  signup(email: String!, password: String!, firstName: String, lastName: String, title:String!, agency:String!, isMU:Boolean ): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
 
   #Agencies
-  createAgency(masteruser: String!, name: String!, img: String!): Agency!
-  updateAgency(id:ID!, masteruser:String!, name:String, img:String):Agency!
-  deleteAgency(id:ID!, masteruser:String!): Agency!
+  createAgency(name: String!, img: String!): Agency!
+  updateAgency(id:ID!, name:String, img:String):Agency!
+  addTeamMember(id:ID!, teammember:String):Agency!
+  deleteAgency(id:ID!): Agency!
 
 
   #Users
+<<<<<<< HEAD
   createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!, agency: String! isMU:Boolean):AuthPayload!
   updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, agency: String, title:String, isMU:Boolean):User!
+=======
+  createUser(email:String!, password:String!, firstName:String, lastName:String, title:String!, isMU:Boolean, agency:String!):AuthPayload!
+  updateUser(id:ID!, email:String, password:String, firstName:String, lastName:String, title:String, isMU:Boolean):User!
+>>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
   deleteUser(id:ID!):User!
 
   #ImgUpload
@@ -38,16 +44,21 @@ type User {
   id: ID! 
   email: String! 
   password: String!
+<<<<<<< HEAD
   firstName: String
   lastName: String
   agency: String
+=======
+  firstName: String!
+  lastName: String!
+  agency: String! 
+>>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
   title: String
   isMU: Boolean
 }
 
 type Agency {
   id: ID!
-  masteruser: String!
   name: String!
   img: String!
   teammembers: [User!]!
