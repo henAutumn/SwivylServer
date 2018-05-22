@@ -8,16 +8,8 @@ const Query = {
     },
     
     agencies(parent, args, ctx, info) {
-<<<<<<< HEAD
-    // const id = getUserId(ctx)
-    //   const where = {
-    //   masteruser: id,
-    // }
-    return ctx.db.query.agencies(  info)
-=======
 
     return ctx.db.query.agencies( info)
->>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
     },
 
     agency(parents,{ id} , ctx, info){

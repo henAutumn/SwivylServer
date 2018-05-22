@@ -1,13 +1,7 @@
 const { getUserId } = require('../../utils')
 
 const agency = {
-<<<<<<< HEAD
-  async createAgency(parent, { masteruser, name, img }, ctx, info) {
-    const userId = getUserId(ctx);
-    // if(userId == masteruser){
-=======
   async createAgency(parent, { name, img }, ctx, info) {
->>>>>>> f2973c86b04ba0f7aa0238eecf10fdca9eb8915f
       return ctx.db.mutation.createAgency(
         {
           data: {
